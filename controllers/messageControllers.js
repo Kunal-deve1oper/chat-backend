@@ -29,12 +29,10 @@ const sendMessage = async (req, res) => {
     // console.log(newMsg.chat.users);
     let id = req.user._id.toString();
     if(newMsg.chat.users[0]._id.toString() !== id){
-      console.log("in 1")
       io.getIo().emit("newMsg", {userId: newMsg.chat.users[0]._id.toString(),chatId: chatId, newMsg: newMsg});
     }
     else
     {
-      console.log("in 2");
       io.getIo().emit("newMsg", {userId: newMsg.chat.users[1]._id.toString(),chatId: chatId, newMsg: newMsg});
     }
     await Chat.findByIdAndUpdate(chatId, {
